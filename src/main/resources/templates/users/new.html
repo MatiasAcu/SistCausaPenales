@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema de Causas Penales</title>
+    <link href="/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<header class="w-100 bg-gradient h-25" style="background-color: #1174a8">
+    <nav class="navbar navbar-expand-xl navbar-light bg-transparent d-flex justify-content-between">
+        <a class="navbar-brand h3" href="/">Sistema de Causas Penales</a>
+        <div>
+            <ul class="navbar-nav">
+                <li class="nav-item border-left border-dark ml-2" style="border-width: 2px">
+                    <a class="nav-link font-weight-bold active" href="/users/list">Lista de Usuarios</a>
+                </li>
+                <li class="nav-item border-left border-dark ml-2" style="border-width: 2px">
+                    <a aria-disabled="true" class="nav-link disabled font-weight-bold" tabindex="-1">Alta de
+                        Usuarios</a>
+                </li>
+                <li class="nav-item border-left border-dark ml-2" style="border-width: 2px">
+                    <a class="nav-link active font-weight-bold" href="/logout">Salir</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<body>
+
+<div class="mx-auto w-25 mt-3">
+    <form action="#" class="needs-validation" method="post" novalidate th:action="@{/users}" th:object="${user}">
+        <p class="h3 d-print-inline">Registrar Usuario</p>
+        <div class="form-group">
+            <label for="name">Nombre</label>
+            <input class="form-control" id="name" required th:field="*{name}" type="text">
+            <div class="invalid-feedback">
+                Nombre obligatorio
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="surname">Apellido</label>
+            <input class="form-control" id="surname" required th:field="*{surname}" type="text">
+            <div class="invalid-feedback">
+                Apellido obligatorio
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input class="form-control" id="email" required th:field="*{email}" type="email">
+            <div class="invalid-feedback">
+                Email obligatorio
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password">Contraseña</label>
+            <input class="form-control" id="password" required th:field="*{password}" type="password">
+            <div class="invalid-feedback">
+                Contraseña obligatoria
+            </div>
+        </div>
+        <div class="d-flex flex-row justify-content-between">
+            <button class="btn btn-primary btn-lg" name="newUser" type="submit">Ingresar</button>
+        </div>
+        <th:block th:switch="${status}">
+            <div class="alert-danger border-danger rounded p-2 border mt-1" th:case="'Email is already used'">
+                <p>La cuenta email ya esta en uso</p>
+            </div>
+            <div class="alert-danger border-danger rounded p-2 border mt-1" th:case="'Email is already used'">
+                <p>La cuenta email ya esta en uso</p>
+            </div>
+            <div class="alert-danger border-danger rounded p-2 border mt-1" th:case="*" th:if="${status} != null">
+                <p>Los campos no pueden estar vacios</p>
+            </div>
+            <div class="alert-success border-success rounded p-2 border mt-1" th:case="'success'">
+                <p>El usuario se ha guardado correctamente</p>
+            </div>
+        </th:block>
+    </form>
+</div>
+
+<script src="/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js"></script>
+
+<script>
+    (function () {
+        'use strict';
+        window.addEventListener('load', function () {
+            var forms = document.getElementsByClassName('needs-validation');
+            var validation = Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
+</body>

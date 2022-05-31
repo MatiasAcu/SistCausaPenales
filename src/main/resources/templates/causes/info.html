@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema de Causas Penales</title>
+    <link href="/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</head>
+<header class="w-100 bg-gradient h-25" style="background-color: #1174a8">
+    <nav class="navbar navbar-expand-xl navbar-light bg-transparent d-flex justify-content-between">
+        <a class="navbar-brand h3" href="/">Sistema de Causas Penales</a>
+        <div>
+            <ul class="navbar-nav">
+                <li class="nav-item border-left border-dark ml-2" style="border-width: 2px">
+                    <a class="nav-link font-weight-bold active" href="/causes/list">Lista de Causas</a>
+                </li>
+                <li class="nav-item border-left border-dark ml-2" style="border-width: 2px">
+                    <a class="nav-link active font-weight-bold" href="/causes/new">
+                        Agregar Causas
+                    </a>
+                </li>
+                <li class="nav-item border-left border-dark ml-2" style="border-width: 2px">
+                    <a class="nav-link active font-weight-bold" href="/logout">Salir</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<body onload="init()">
+
+<div class="mx-auto w-50 mt-3">
+    <form action="#" class="needs-validation" id="cause" method="post" th:action="@{/causes/edit}" th:object="${cause}">
+        <div class="form-row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="number">Numero de causa</label>
+                    <textarea class="form-control disabled" id="number" readonly style="resize: none"
+                              th:field="*{number}"></textarea>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="date">Fecha</label>
+                    <textarea class="form-control disabled" id="date" readonly style="resize: none"
+                              th:field="*{date}"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="victim">Victima</label>
+                    <textarea class="form-control disabled" id="victim" readonly style="resize: none"
+                              th:field="*{victim}"></textarea>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="victimizer">Victimario</label>
+                    <textarea class="form-control disabled" id="victimizer" readonly style="resize: none"
+                              th:field="*{victimizer}"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="d-flex justify-content-between">
+                <label for="description">Descripcion</label>
+                <div>
+                    <button class="btn-sm active btn-outline-light" id="edit-button" onclick="enableEditMode()"
+                            type="button">
+                        <img alt="edit-description" height="18px" src="/icons/edit_icon.svg" width="12px">
+                    </button>
+                    <button class="btn-sm disabled btn-outline-light" id="save-button"
+                            onclick="submitForm();disableEditMode();"
+                            type="submit">
+                        <img alt="edit-description" height="20px" src="/icons/save_icon.svg" width="20px">
+                    </button>
+                </div>
+            </div>
+            <textarea class="form-control" id="description" required rows="6" style="resize: none"
+                      th:field="*{description}"></textarea>
+        </div>
+        <div class="alert-success border-success rounded p-2 border mt-1" th:if="${status} == 'success'">
+            <p>La descripcion se ha actualizado correctamente</p>
+        </div>
+        <div class="alert-danger border-danger rounded p-2 border mt-1"
+             th:if="${status} == 'Description cant be blank'">
+            <p>La descripcion no puede estar vacia</p>
+        </div>
+    </form>
+</div>
+
+<script src="/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js"></script>
+
+
+<script>
+
+    function enableEditMode() {
+        $("#edit-button").prop("disabled", true).addClass("disabled").removeClass("active")
+        $("#save-button").prop("disabled", false).addClass("active").removeClass("disabled")
+        $("#description").prop("disabled", false)
+    }
+
+    function disableEditMode() {
+        $("#edit-button").prop("disabled", false).addClass("active").removeClass("disabled")
+        $("#save-button").prop("disabled", true).addClass("disabled").removeClass("active")
+        $("#description").prop("disabled", true)
+    }
+
+    function submitForm() {
+        $("#cause").submit();
+    }
+
+</script>
+<script th:inline="javascript">
+
+    function init() {
+        var edit = [[${edit}]];
+
+        if (edit) {
+            enableEditMode()
+        } else {
+            disableEditMode()
+        }
+    }
+
+</script>
+</body>

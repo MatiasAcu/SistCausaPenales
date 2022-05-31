@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema de Causas Penales</title>
+    <link href="/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css" rel="stylesheet">
+
+
+</head>
+<header class="w-100 bg-gradient h-25" style=";background-color: #1174a8">
+    <nav class="navbar navbar-expand-xl navbar-light bg-transparent d-flex justify-content-between">
+        <a class="navbar-brand h3" href="index.html">Sistema de Causas Penales</a>
+        <div>
+            <ul class="navbar-nav">
+                <li class="nav-item  border-left border-dark ml-2" style="border-width: 2px">
+                    <a class="nav-link active font-weight-bold" href="/logout">Salir</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+<body>
+<div class="d-flex flex-row justify-content-center pt-3">
+    <div class="w-50 d-flex justify-content-around flex-wrap">
+        <div>
+            <button class="btn d-flex flex-column" onclick="window.location.href='/users/menu'"
+                    style="background: aquamarine">
+                <img alt="Gestion de Usuarios" height="120px" src="icons/user_admin_icon.svg" width="120px">
+                <p class="font-weight-bold">Gestion de Usuarios</p>
+            </button>
+        </div>
+        <div>
+            <button class="btn d-flex flex-column" onclick="window.location.href='/causes/menu'"
+                    style="background: aquamarine">
+                <img alt="Gestion de Usuarios" height="120px" src="icons/causes_icon.svg" width="120px">
+                <p class="font-weight-bold">Gestion de Causas</p>
+            </button>
+        </div>
+    </div>
+</div>
+
+<script src="/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

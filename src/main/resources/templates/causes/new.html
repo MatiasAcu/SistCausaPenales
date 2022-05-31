@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema de Causas Penales</title>
+    <link href="/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<header class="w-100 bg-gradient h-25" style="background-color: #1174a8">
+    <nav class="navbar navbar-expand-xl navbar-light bg-transparent d-flex justify-content-between">
+        <a class="navbar-brand h3" href="/">Sistema de Causas Penales</a>
+        <div>
+            <ul class="navbar-nav">
+                <li class="nav-item border-left border-dark ml-2" style="border-width: 2px">
+                    <a class="nav-link font-weight-bold active" href="/causes/list">Lista de Causas</a>
+                </li>
+                <li class="nav-item border-left border-dark ml-2" style="border-width: 2px">
+                    <a aria-disabled="true" class="nav-link disabled font-weight-bold" tabindex="-1">
+                        Agregar Causas
+                    </a>
+                </li>
+                <li class="nav-item border-left border-dark ml-2" style="border-width: 2px">
+                    <a class="nav-link active font-weight-bold" href="/logout">Salir</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<body>
+
+<div class="mx-auto w-50 mt-3">
+    <form action="#" class="needs-validation" method="post" novalidate th:action="@{/causes}" th:object="${cause}">
+        <p class="h3 d-print-inline">Registrar Causa</p>
+        <div class="form-row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="number">Numero de causa</label>
+                    <input class="form-control" id="number" required th:field="*{number}" type="text">
+                    <div class="invalid-feedback">
+                        Numero obligatorio
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="date">Fecha</label>
+                    <input class="form-control" id="date" required th:field="*{date}" type="date">
+                    <div class="invalid-feedback">
+                        Fecha obligatoria
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="victim">Victima</label>
+                    <input class="form-control" id="victim" required th:field="*{victim}" type="text">
+                    <div class="invalid-feedback">
+                        Victima obligatoria
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="victimizer">Victimario</label>
+                    <input class="form-control" id="victimizer" required th:field="*{victimizer}" type="text">
+                    <div class="invalid-feedback">
+                        Victimario obligatorio
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="description">Descripcion</label>
+            <textarea class="form-control" id="description" required rows="4" style="resize: none"
+                      th:field="*{description}"></textarea>
+            <div class="invalid-feedback">
+                Descripcion obligatoria
+            </div>
+        </div>
+        <div class="d-flex flex-row justify-content-between">
+            <button class="btn btn-primary btn-lg" name="newUser" type="submit">Ingresar</button>
+        </div>
+        <th:block th:switch="${status}">
+            <div class="alert-danger border-danger rounded p-2 border mt-1" th:case="'Number already used'">
+                <p>El numero de causa ya esta en uso</p>
+            </div>
+            <div class="alert-danger border-danger rounded p-2 border mt-1" th:case="'Incorrect Format'">
+                <p>El numero de causa tiene un formato erroneo</p>
+            </div>
+            <div class="alert-danger border-danger rounded p-2 border mt-1" th:case="*" th:if="${status} != null">
+                <p>Los campos no pueden estar vacios</p>
+            </div>
+            <div class="alert-success border-success rounded p-2 border mt-1" th:case="'success'">
+                <p>La causa se ha guardado correctamente</p>
+            </div>
+        </th:block>
+    </form>
+</div>
+
+<script src="/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js"></script>
+
+<script>
+    (function () {
+        'use strict';
+        window.addEventListener('load', function () {
+            var forms = document.getElementsByClassName('needs-validation');
+            var validation = Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+
+</script>
+</body>
